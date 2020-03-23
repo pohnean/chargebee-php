@@ -8,9 +8,9 @@ class ChargeBee_ListResult implements Countable, ArrayAccess, Iterator
   private $nextOffset;
 
 	protected $_items;
-	
+
 	private $_index;
-	
+
   function __construct($response, $nextOffset)
   {
 		$this->response = $response;
@@ -18,25 +18,25 @@ class ChargeBee_ListResult implements Countable, ArrayAccess, Iterator
     $this->_items = array();
     $this->_initItems();
   }
-	
+
 	private function _initItems()
 	{
 		foreach($this->response as $r)
 		{
 			array_push($this->_items, new ChargeBee_Result($r));
 		}
-	}  
-	
+	}
+
 	public function nextOffset()
 	{
 	  return $this->nextOffset;
 	}
-	
+
 	public function count()
 	{
 		return count($this->_items);
 	}
-	
+
 	//Implementation for ArrayAccess functions
 	public function offsetSet($k, $v)
   {
@@ -55,7 +55,7 @@ class ChargeBee_ListResult implements Countable, ArrayAccess, Iterator
 
   public function offsetGet($k)
   {
-    return isset($this->list[$k]) ? $this->list[$k] : null;
+    return isset($this->_items[$k]) ? $this->_items[$k] : null;
   }
 
   //Implementation for Iterator functions
